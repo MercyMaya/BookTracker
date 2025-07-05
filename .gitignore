@@ -1,0 +1,15 @@
+# ─── IDE / editor cruft ───────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── OS thumbnails ────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Credentials & env files ──────────────────────────
+/api/config.php      # real DB creds live here, never commit
+*.env
+.env
+api/config.php

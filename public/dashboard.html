@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Books</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>My Books</h1><button id="logout">Logout</button>
+    </header>
+    <section id="bookLists">
+        <h2>Want to Read</h2>
+        <ul id="want"></ul>
+        <h2>Reading</h2>
+        <ul id="reading"></ul>
+        <h2>Finished</h2>
+        <ul id="finished"></ul>
+    </section>
+
+    <dialog id="addDialog">
+        <form id="addForm">
+            <input name="google_id" placeholder="Google Books ID" required />
+            <input name="title" placeholder="Title" required />
+            <input name="author" placeholder="Author" />
+            <button type="submit">Add</button>
+        </form>
+    </dialog>
+
+    <button id="fabAdd">＋</button>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+
+</html>
