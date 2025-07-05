@@ -21,12 +21,21 @@
     </section>
 
     <dialog id="addDialog">
-        <form id="addForm">
-            <input name="google_id" placeholder="Google Books ID" required />
-            <input name="title" placeholder="Title" required />
-            <input name="author" placeholder="Author" />
-            <button type="submit">Add</button>
-        </form>
+         <form id="addForm">
+             <!-- Search bar -->
+             <input id="searchBook" type="search" placeholder="Search title, author, or ISBN" autocomplete="off" />
+            
+             <!-- live results will appear here -->
+             <ul id="searchResults"></ul>
+            
+             <!-- hidden fields populated when user picks a book -->
+             <input type="hidden" name="google_id" />
+             <input type="hidden" name="title" />
+             <input type="hidden" name="author" />
+             <input type="hidden" name="cover_url" />
+             <input type="hidden" name="description" />
+            
+             <button id="addBtn" type="submit" disabled>Add book</button>+    </form>
     </dialog>
 
     <button id="fabAdd">＋</button>
