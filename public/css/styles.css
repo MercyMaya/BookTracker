@@ -2,141 +2,256 @@
     --bg: #fafafa;
     --fg: #222;
     --accent: #00a3ff;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #111;
-        --fg: #eee;
-        --accent: #39c4ff;
-    }
+    --navbar-bg: #fff;
+    --navbar-fg: #222;
 }
 
 * {
     box-sizing: border-box;
-    font-family: system-ui, Segoe UI, Roboto
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
+    font-family: system-ui, Segoe UI, Roboto;
     background: var(--bg);
     color: var(--fg);
+    min-height: 100vh;
+    /* Page scroll only */
+    overflow-y: auto;
+}
+
+/* ─── NAVBAR ───────────────────────────────────────────────────────── */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: var(--navbar-bg);
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100dvh
+    justify-content: space-between;
+    padding: 0 .75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+    z-index: 10;
 }
 
-main#landing {
-    text-align: center
+.navbar__brand {
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
-button {
-    cursor: pointer;
-    padding: .5rem 1rem;
+.navbar__actions {
+    display: flex;
+    gap: .5rem;
+}
+
+.btn-ghost {
+    background: none;
     border: none;
-    border-radius: .4rem;
-    background: var(--accent);
-    color: #fff;
-    font-size: 1rem;
-    margin: .25rem
+    color: var(--navbar-fg);
+    font-size: .9rem;
+    cursor: pointer;
 }
 
+.btn-icon {
+    background: none;
+    border: none;
+    padding: .25rem;
+    cursor: pointer;
+    color: var(--navbar-fg);
+}
+
+/* ─── FILTER BAR ───────────────────────────────────────────────────── */
+.book-controls {
+    padding: 72px .75rem .5rem;
+    /* 72px to clear navbar */
+    text-align: center;
+}
+
+#bookFilter {
+    width: 100%;
+    max-width: 360px;
+    padding: .5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: .4rem;
+}
+
+/* ─── STACKED COLUMNS ───────────────────────────────────────────────── */
+section#bookLists {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem .75rem;
+    margin-top: 1rem;
+}
+
+.column h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    margin-bottom: .5rem;
+}
+
+.column h2 .toggle {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: .5rem;
+    transition: transform .2s;
+}
+
+.column h2 .toggle.collapsed {
+    transform: rotate(-90deg);
+}
+
+.column ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: .75rem;
+    /* no fixed height or overflow on sections */
+}
+
+/* ─── CARD LAYOUT ───────────────────────────────────────────────────── */
+.card,
+.book {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: .5rem;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    transition: box-shadow .15s;
+}
+
+.card:hover,
+.book:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+}
+
+/* cover fills card width, never overflows */
+.card img,
+.book img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 96/140;
+    object-fit: cover;
+    border-radius: .25rem;
+    margin-bottom: .5rem;
+}
+
+/* info (title+author) flexes to fill space */
+.book .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.book .book-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    font-size: .9rem;
+    margin-bottom: .25rem;
+}
+
+.book .book-author {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .8rem;
+    color: #555;
+}
+
+/* ─── DELETE TRASH ICON ─────────────────────────────────────────────── */
+button.delete {
+    background: none;
+    border: none;
+    margin-top: .5rem;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    align-self: center;
+}
+
+button.delete svg {
+    width: 100%;
+    height: 100%;
+    fill: #c00;
+}
+
+/* ─── ADD BOOK MODAL (centered+resizable) ───────────────────────────── */
 dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
     border: none;
     border-radius: .5rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, .15)
+    padding: 1rem;
+    resize: both;
+    overflow: auto;
 }
 
 dialog form {
     display: flex;
     flex-direction: column;
-    gap: .75rem
+    gap: .75rem;
 }
 
-dialog input {
-    padding: .5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: .3rem
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: .75rem 1rem;
-    background: var(--accent);
-    color: #fff
-}
-
-header button {
-    background: #fff;
-    color: var(--accent)
-}
-
-section#bookLists {
-    padding: 1rem;
-    display: grid;
-    gap: 2rem
-}
-
-section#bookLists h2 {
-    margin: .25rem 0
-}
-
-section#bookLists ul {
+#searchResults {
     list-style: none;
-    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: .5rem;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#searchResults .card {
     display: flex;
     flex-direction: column;
-    gap: .5rem
-}
-
-li.book {
-    display: flex;
     align-items: center;
-    gap: .5rem;
-    padding: .5rem;
-    border: 1px solid #ddd;
-    border-radius: .4rem;
-    background: #fff
 }
 
-li.book img {
-    width: 40px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: .1rem
-}
-
-select.status {
-    margin-left: auto
-}
-
-button.delete {
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    line-height: 1;
-    color: #c00;
-    margin-left: .5rem;
-    cursor: pointer
-}
-
-#fabAdd {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    font-size: 2rem;
-    line-height: 0;
+#addBtn {
     background: var(--accent);
     color: #fff;
     border: none;
+    padding: .75rem;
+    font-size: 1rem;
+    border-radius: .4rem;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, .25)
+}
+
+/* ─── FAB ───────────────────────────────────────────────────────────── */
+.fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .75rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+    z-index: 5;
 }

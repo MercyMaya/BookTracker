@@ -3,42 +3,85 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>My Books</title>
+    <title>BookTracker – Dashboard</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <header>
-        <h1>My Books</h1><button id="logout">Logout</button>
-    </header>
+
+    <!-- ─── NAVBAR ──────────────────────────────────────────────────────── -->
+    <nav class="navbar">
+        <div class="navbar__brand">📚 BookTracker</div>
+        <div class="navbar__actions">
+            <button id="logout" class="btn-ghost">Logout</button>
+            <button class="btn-icon" title="My Account">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+                    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ─── OPTIONAL FILTER BAR ─────────────────────────────────────────── -->
+    <div class="book-controls">
+        <input id="bookFilter" type="search" placeholder="Filter my books…">
+    </div>
+
+    <!-- ─── STACKED SECTIONS ────────────────────────────────────────────── -->
     <section id="bookLists">
-        <h2>Want to Read</h2>
-        <ul id="want"></ul>
-        <h2>Reading</h2>
-        <ul id="reading"></ul>
-        <h2>Finished</h2>
-        <ul id="finished"></ul>
+
+        <div class="column">
+            <h2>
+                <button class="toggle" data-target="want">▾</button>
+                Want to Read
+            </h2>
+            <ul id="want"></ul>
+        </div>
+
+        <div class="column">
+            <h2>
+                <button class="toggle" data-target="reading">▾</button>
+                Reading
+            </h2>
+            <ul id="reading"></ul>
+        </div>
+
+        <div class="column">
+            <h2>
+                <button class="toggle" data-target="finished">▾</button>
+                Finished
+            </h2>
+            <ul id="finished"></ul>
+        </div>
+
     </section>
 
+    <!-- ─── ADD BOOK MODAL ─────────────────────────────────────────────────── -->
     <dialog id="addDialog">
-         <form id="addForm">
-             <!-- Search bar -->
-             <input id="searchBook" type="search" placeholder="Search title, author, or ISBN" autocomplete="off" />
-            
-             <!-- live results will appear here -->
-             <ul id="searchResults"></ul>
-            
-             <!-- hidden fields populated when user picks a book -->
-             <input type="hidden" name="google_id" />
-             <input type="hidden" name="title" />
-             <input type="hidden" name="author" />
-             <input type="hidden" name="cover_url" />
-             <input type="hidden" name="description" />
-            
-             <button id="addBtn" type="submit" disabled>Add book</button>+    </form>
+        <form id="addForm">
+            <input id="searchBook" type="search" placeholder="Search title, author, or ISBN" autocomplete="off">
+            <ul id="searchResults"></ul>
+
+            <!-- hidden payload fields -->
+            <input type="hidden" name="google_id">
+            <input type="hidden" name="title">
+            <input type="hidden" name="author">
+            <input type="hidden" name="cover_url">
+            <input type="hidden" name="description">
+
+            <button id="addBtn" type="submit" disabled>Add Book</button>
+        </form>
     </dialog>
 
-    <button id="fabAdd">＋</button>
+    <!-- ─── FLOATING ADD-BOOK BUTTON ─────────────────────────────────────── -->
+    <button id="fabAdd" class="fab">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span>Add Book</span>
+    </button>
+
     <script type="module" src="js/dashboard.js"></script>
 </body>
 
